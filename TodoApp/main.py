@@ -16,6 +16,10 @@ while True:
             file.writelines(todos)
             file.close()
         case 'show' | 'display':
+            file = open('todos.txt', 'r')
+            todos = file.readline()
+            file.close()
+
             for index, item in enumerate(todos):
                 row = f"{index + 1}. {item}"
                 print(row)
