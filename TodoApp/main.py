@@ -32,10 +32,20 @@ while True:
             with open('todos.txt', 'r') as file: 
                 todos = file.readlines() 
 
-            number = int(input("Number of the todo to complete: ")) - 1 
-            todos.pop(number) 
-            with open('todos.txt', 'w') as file:
-                file.writelines(todos)
+            try:
+                number = int(input("Type the index number of the todo that was completed: ")) - 1
+                todo_to_complete = todos[number].strip()
+                confirm = input(f"Are you sure you want to complete '{todo_to_complete}'? (yes/no): ").strip().lower()
+
+                if confirm in ('yes', 'y'):
+                    todos.pop(number) # takes of the list
+                    with open('todos.txt', 'w') as file: # reads tje list
+                        file.writelines(todos)
+                    print(f"Todo '{todo_to_complete}' marked as completed!")
+                else:
+                    print("Operation canceled.")
+            except(IndexError, ValueError):
+                print("Invalid number!")
 
         case 'exit':
             break
