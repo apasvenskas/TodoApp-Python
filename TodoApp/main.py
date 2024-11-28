@@ -9,7 +9,7 @@ while True:
         with open('todos.txt', 'a') as file: # Use 'a' to append to the file
             file.write(todo)
 
-    if 'show' in user_action:
+    elif 'show' in user_action:
         with open('todos.txt', 'r') as file: 
             todos = file.readlines() 
             new_todos = [item.strip('\n') for item in todos] 
@@ -18,7 +18,7 @@ while True:
                 row = f"{index + 1}. {item}" 
                 print(row)
 
-    if 'edit' in user_action:
+    elif 'edit' in user_action:
         with open('todos.txt', 'r') as file: 
             todos = file.readlines() 
                 
@@ -27,7 +27,7 @@ while True:
                 row = f"{index + 1}. {item}" 
                 print(row)
 
-            number = int(input("Number of the todo to edit: ")) - 1 
+            number = int(input("Enter the index number of the todo to edit: ")) - 1 
             new_todo = input("Enter new todo: ") + "\n" 
 
 
@@ -42,7 +42,7 @@ while True:
                     print(row)
                 
 
-    if 'complete' in user_action:
+    elif 'complete' in user_action:
         with open('todos.txt', 'r') as file: 
             todos = file.readlines() 
 
@@ -61,10 +61,9 @@ while True:
         except(IndexError, ValueError):
             print("Invalid number!")
 
-    if 'exit' in user_action:
+    elif 'exit' in user_action:
         break
-
-        # case _:
-        #     print("You entered a wrong command")
+    else:
+        print("Command is not valid.")
 
 print("Bye!")
