@@ -6,6 +6,5 @@ bendraut
 work
 study
 code
-Bendraut
 code
 clean
