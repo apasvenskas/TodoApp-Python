@@ -8,3 +8,7 @@ study
 code
 code
 clean
+run
+work
+clean
+code

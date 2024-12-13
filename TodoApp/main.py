@@ -10,20 +10,29 @@ while True:
 
 
     if 'add' in user_action:
-        # todo = input("Enter a todo: ") + "\n" # \n is a break in line for todos.txt
-        # todo = user_action[4:]
-        # with open('todos.txt', 'a') as file: # Use 'a' to append to the file
-        #     file.write(todo)
-
         if user_action.startswith("add"):
-            todo = user_action[4:]
 
-            todos = get_todos() #open todo.txt file via function get_todos
+            todo = user_action[4:].strip()  # .strip() removes any unwanted leading/trailing spaces
 
-            todos.append(todo + '\n')
+            if todo:
+                todos = get_todos()
+                todos.append(todo + '\n')
+                with open('todos.txt', 'w') as file:
+                    file.writelines(todos)
+                print(f"Todo added: {todo}")
+            
+            # if not todo is directly provided
+            else:
+                todo = input("Enter the todo to be added: ").strip()# Prompt for a new todo
 
-            with open('todos.txt', 'w') as file:
-                file.writelines(todos)
+                if todo:
+                    todos = get_todos()
+                    todos.append(todo + '\n')
+                    with open('todos.txt', 'w') as file:
+                        file.writelines(todos)
+                    print(f"Todo added: {todo}")
+                else:
+                    print("Todo cannot be added.")
 
     elif 'show' in user_action:
         with open('todos.txt', 'r') as file: 
