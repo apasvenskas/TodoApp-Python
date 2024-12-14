@@ -1,8 +1,11 @@
-def get_todos(): 
-    with open('todos.txt', 'r') as file: # Use 'a' to append to the file
+def get_todos(filepath): # file path a general path witch can be specified in the call later such as todos = get_todos("todos.txt")
+    with open(filepath, 'r') as file: # Use 'a' to append to the file
         todos = file.readlines()
     return todos
 
+def write_todos(filepath, todos_arg):
+     with open(filepath, 'w') as file:
+        file.writelines(todos_arg)
 
 while True:
     user_action = input("Type add, show, edit, complete or exit: ")
@@ -15,21 +18,19 @@ while True:
             todo = user_action[4:].strip()  # .strip() removes any unwanted leading/trailing spaces
 
             if todo:
-                todos = get_todos()
+                todos = get_todos("todos.txt")
                 todos.append(todo + '\n')
-                with open('todos.txt', 'w') as file:
-                    file.writelines(todos)
+                write_todos("todos.txt", todos)
                 print(f"Todo added: {todo}")
             
-            # if not todo is directly provided
+            # if no todo is directly provided
             else:
-                todo = input("Enter the todo to be added: ").strip()# Prompt for a new todo
+                todo = input("Enter the todo to be added: ").strip()
 
                 if todo:
-                    todos = get_todos()
+                    todos = get_todos("todos.txt")
                     todos.append(todo + '\n')
-                    with open('todos.txt', 'w') as file:
-                        file.writelines(todos)
+                    write_todos("todos.txt", todos)
                     print(f"Todo added: {todo}")
                 else:
                     print("Todo cannot be added.")
@@ -45,7 +46,7 @@ while True:
 
     elif 'edit' in user_action:
         try:
-            todos = get_todos()
+            todos = get_todos("todos.txt")
             # with open('todos.txt', 'r') as file: 
             #     todos = file.readlines() 
                     
@@ -60,13 +61,13 @@ while True:
 
             todos[number] = new_todo 
 
-            with open('todos.txt', 'w') as file: 
-                file.writelines(todos)
+            write_todos("todos.txt", todos)
 
-                new_todos = [item.strip('\n') for item in todos] 
-                for index, item in enumerate(new_todos): 
-                    row = f"{index + 1}. {item}" 
-                    print(row)
+            new_todos = [item.strip('\n') for item in todos] 
+            for index, item in enumerate(new_todos): 
+                row = f"{index + 1}. {item}" 
+                print(row)
+
         except ValueError:
             print("Your command is not valid!")
             continue # restart the code             
@@ -74,7 +75,7 @@ while True:
     elif 'complete' in user_action:
         # with open('todos.txt', 'r') as file: 
         #     todos = file.readlines() 
-        todos = get_todos()
+        todos = get_todos("todos.txt")
 
         try:
             number = int(input("Type the index number of the todo that was completed: ")) - 1
@@ -83,8 +84,7 @@ while True:
 
             if confirm in ('yes', 'y'):
                 todos.pop(number) # takes of the list
-                with open('todos.txt', 'w') as file: # reads tje list
-                    file.writelines(todos)
+                write_todos("todos.txt", todos)
                 print(f"Todo '{todo_to_complete}' marked as completed!")
             else:
                 print("Operation canceled.")
