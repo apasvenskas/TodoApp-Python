@@ -1,11 +1,16 @@
-def get_todos(filepath): # file path a general path witch can be specified in the call later such as todos = get_todos("todos.txt")
+def get_todos(filepath="todos.txt"): # file path a general path witch can be specified in the call later such as todos = get_todos("todos.txt")
+    """
+        Read a text file and return the list of to do items.
+    """
     with open(filepath, 'r') as file: # Use 'a' to append to the file
         todos = file.readlines()
     return todos
 
-def write_todos(filepath, todos_arg):
+def write_todos(todos_arg, filepath="todos.txt"):
      with open(filepath, 'w') as file:
         file.writelines(todos_arg)
+
+# print(help(get_todos))
 
 while True:
     user_action = input("Type add, show, edit, complete or exit: ")
@@ -18,9 +23,9 @@ while True:
             todo = user_action[4:].strip()  # .strip() removes any unwanted leading/trailing spaces
 
             if todo:
-                todos = get_todos("todos.txt")
+                todos = get_todos()# file path a general path witch can be specified in the call later such as todos = get_todos("todos.txt")
                 todos.append(todo + '\n')
-                write_todos("todos.txt", todos)
+                write_todos(todos)
                 print(f"Todo added: {todo}")
             
             # if no todo is directly provided
@@ -28,9 +33,9 @@ while True:
                 todo = input("Enter the todo to be added: ").strip()
 
                 if todo:
-                    todos = get_todos("todos.txt")
+                    todos = get_todos()# file path a general path witch can be specified in the call later such as todos = get_todos("todos.txt")
                     todos.append(todo + '\n')
-                    write_todos("todos.txt", todos)
+                    write_todos(todos)
                     print(f"Todo added: {todo}")
                 else:
                     print("Todo cannot be added.")
@@ -46,9 +51,7 @@ while True:
 
     elif 'edit' in user_action:
         try:
-            todos = get_todos("todos.txt")
-            # with open('todos.txt', 'r') as file: 
-            #     todos = file.readlines() 
+            todos = get_todos()# file path a general path witch can be specified in the call later such as todos = get_todos("todos.txt")
                     
             new_todos = [item.strip('\n') for item in todos] 
             for index, item in enumerate(new_todos): 
@@ -61,7 +64,7 @@ while True:
 
             todos[number] = new_todo 
 
-            write_todos("todos.txt", todos)
+            write_todos(todos)
 
             new_todos = [item.strip('\n') for item in todos] 
             for index, item in enumerate(new_todos): 
@@ -73,9 +76,7 @@ while True:
             continue # restart the code             
 
     elif 'complete' in user_action:
-        # with open('todos.txt', 'r') as file: 
-        #     todos = file.readlines() 
-        todos = get_todos("todos.txt")
+        todos = get_todos() # file path a general path witch can be specified in the call later such as todos = get_todos("todos.txt")
 
         try:
             number = int(input("Type the index number of the todo that was completed: ")) - 1
@@ -84,7 +85,7 @@ while True:
 
             if confirm in ('yes', 'y'):
                 todos.pop(number) # takes of the list
-                write_todos("todos.txt", todos)
+                write_todos(todos)
                 print(f"Todo '{todo_to_complete}' marked as completed!")
             else:
                 print("Operation canceled.")
