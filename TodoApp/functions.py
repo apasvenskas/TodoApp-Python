@@ -10,4 +10,7 @@ def write_todos(todos_arg, filepath="todos.txt"):
      with open(filepath, 'w') as file:
         file.writelines(todos_arg)
 
+if __name__ == "main":
+    print("Hello")
+    print(get_todos())
 # print(help(get_todos))

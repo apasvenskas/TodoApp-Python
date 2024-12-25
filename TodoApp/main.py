@@ -1,4 +1,9 @@
 import functions 
+import time
+
+currentDateTime = time.strftime("%b, %d, %Y, %H:%M:%S") # get the current time in desired format
+
+print(currentDateTime)
 
 while True:
     user_action = input("Type add, show, edit, complete or exit: ")
