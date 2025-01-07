@@ -1,21 +1,12 @@
 study
 code
 work
-bendraut
-work
 study
 code
 study
 clean the roomwork
 work
 clean
-pay roll
 code
 bendraut
-Python
 Go for a jog
-work on the todo app
-adjust the code
-gui
-complete the todo list
-test

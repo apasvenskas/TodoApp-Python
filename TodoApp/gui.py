@@ -9,10 +9,17 @@ list_box = FreeSimpleGUI.Listbox(values = functions.get_todos(),
                                  enable_events = True, 
                                  size = [45, 10])
 edit_button = FreeSimpleGUI.Button("Edit")
+complete_button = FreeSimpleGUI.Button("Complete")
+exit_button = FreeSimpleGUI.Button("Exit")
 
 window = FreeSimpleGUI.Window('My Todo App', 
-                              layout=[[label], [input_box, add_button], [list_box, edit_button]], 
-                              font=('Helvetica', 20))
+                              layout=[
+                                  [label], 
+                                  [input_box, add_button], 
+                                  [list_box, edit_button, complete_button], 
+                                  [exit_button]
+                                  ], 
+                              font=('Helvetica', 18))
 while True:
     event, values = window.read() # Displays the window on the screen.
     # window.read()
@@ -35,6 +42,17 @@ while True:
             current_todo[index] = new_todo # updates the list with the new todo in gui
             functions.write_todos(current_todo)
             window['todos'].update(values = current_todo) #displays just added todo
+
+        case "Complete":
+            todo_to_complete = values["todos"][0]
+            todos = functions.get_todos()
+            todos.remove(todo_to_complete)
+            functions.write_todos(todos) #send the todo to the functions.py file, write_todos function
+            window["todos"].update(values = todos)
+            window["todo"].update(value = "") #todo is a key for input_box
+
+        case "Exit":
+            break
         
         case 'todos':
             window['todo'].update(value = values['todos'][0])
