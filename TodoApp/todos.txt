@@ -9,3 +9,5 @@ clean
 code
 bendraut
 Go for a jog
+
+Apply for a universityget recomandations
